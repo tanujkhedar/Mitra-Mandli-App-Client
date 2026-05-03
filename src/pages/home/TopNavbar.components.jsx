@@ -1,5 +1,5 @@
 import { Bell, Search } from 'lucide-react'
-import app_logo from '../assets/Mitra_Mandli_App_Logo.png'
+import app_logo from '../../assets/Mitra_Mandli_App_Logo.png'
 
 const TopNavbar = () => {
   return (

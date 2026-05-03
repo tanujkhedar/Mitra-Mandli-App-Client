@@ -1,10 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
-import Home from "../pages/Home.page.jsx";
+import Home from "../pages/home/Home.page.jsx";
 import MainLayout from "../layouts/Main.layout.jsx";
-import NotFound from "../pages/NotFound.page.jsx";
-import Profile from "../pages/Profile.page.jsx";
-import Message from "../pages/Message.page.jsx";
-import Chat from "../pages/Chat.page.jsx";
+import NotFound from "../pages/notFound/NotFound.page.jsx";
+import Profile from "../pages/profile/Profile.page.jsx";
+import Message from "../pages/message/Message.page.jsx";
+import Chat from "../pages/chats/Chat.page.jsx";
+import Reels from "../pages/reels/Reels.page.jsx";
 
 export const router = createBrowserRouter([
     {
@@ -14,6 +15,10 @@ export const router = createBrowserRouter([
             {
                 path : '/',
                 element : <Home/>
+            },
+            {
+                path : '/reels',
+                element : <Reels/>
             },
             {
                 path : '/message',

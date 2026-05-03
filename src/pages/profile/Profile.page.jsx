@@ -1,7 +1,7 @@
 import React from 'react'
-import ProfileUpperSection from '../components/ProfileUpperSection.component.jsx'
-import ProfileLowerSection from '../components/ProfileLowerSection.component.jsx'
-import StoryHighlight from '../components/StoryHighlight.component.jsx'
+import ProfileUpperSection from './ProfileUpperSection.component.jsx'
+import ProfileLowerSection from './ProfileLowerSection.component.jsx'
+import StoryHighlight from '../../components/StoryHighlight.component.jsx'
 
 const Profile = () => {
   return (

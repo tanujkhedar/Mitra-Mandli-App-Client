@@ -1,9 +1,9 @@
 import { Outlet } from "react-router-dom"
-import BottomNavbar from "../components/BottomNavbar.component.jsx"
+import BottomNavbar from "./BottomNavbar.component.jsx"
 
-const Main = () => {
+const MainLayout = () => {
   return (
-    <div className="flex flex-col h-screen bg-gray-100 overscroll-none">
+    <div className="flex flex-col h-dvh bg-gray-100 overscroll-none">
       <div className="flex-1 overflow-y-auto">
         <Outlet/>
       </div>
@@ -14,4 +14,4 @@ const Main = () => {
   )
 }
 
-export default Main
+export default MainLayout

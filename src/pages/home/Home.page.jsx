@@ -1,6 +1,6 @@
-import PostCard from "../components/PostCard.component.jsx"
-import StoryHighlight from "../components/StoryHighlight.component.jsx"
-import TopNavbar from "../components/TopNavbar.components.jsx"
+import PostCard from "./PostCard.component.jsx"
+import StoryHighlight from "../../components/StoryHighlight.component.jsx"
+import TopNavbar from "./TopNavbar.components.jsx"
 
 const Home = () => {
   return (

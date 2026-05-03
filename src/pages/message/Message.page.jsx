@@ -1,6 +1,6 @@
 import React from 'react'
-import MessageListCard from '../components/MessageListCard.component.jsx'
-import MessageTopbar from '../components/MessageTopbar.component.jsx'
+import MessageListCard from './MessageListCard.component.jsx'
+import MessageTopbar from './MessageTopbar.component.jsx'
 import { Link } from 'react-router-dom'
 
 const Message = () => {
