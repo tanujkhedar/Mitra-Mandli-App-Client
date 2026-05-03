@@ -5,7 +5,7 @@ import BottomNavbar from "../components/BottomNavbar.component.jsx"
 
 const Main = () => {
   return (
-    <div className="flex flex-col h-screen bg-gray-100">
+    <div className="flex flex-col h-screen bg-gray-100 overscroll-none">
       <div className="sticky top-0 z-50">
         <TopNavbar/>
       </div>

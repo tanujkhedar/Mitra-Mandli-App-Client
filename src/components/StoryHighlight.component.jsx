@@ -13,7 +13,7 @@ while(i<10) {
 
 const StoryHighlight = () => {
   return (
-    <div className='flex overflow-x-auto bg-white shadow py-4 px-6 gap-10'>
+    <div className='flex overflow-x-auto bg-white shadow py-4 px-6 gap-10 overscroll-none'>
         {stories.map((item, i) => item)}
     </div>
   )

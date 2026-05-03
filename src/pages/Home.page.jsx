@@ -4,7 +4,7 @@ import StoryHighlight from "../components/StoryHighlight.component.jsx"
 
 const Home = () => {
   return (
-    <div>
+    <div className="overscroll-none">
       <div>
         <StoryHighlight/>
       </div>
