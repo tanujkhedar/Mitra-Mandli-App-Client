@@ -21,7 +21,7 @@ const BottomNavbar = () => {
         <NavLink to='/upload' end className={({isActive}) => { setUploadActive(isActive); return `p-3 rounded-full  ${isActive ? 'bg-purple-200' : ' '}`}}>
           <Upload color={isUploadActive ? "Purple" : " black"}/>
         </NavLink>
-        <NavLink to='/message' end className={({isActive}) => { setMessageActive(isActive); return `p-3 rounded-full  ${isActive ? 'bg-purple-200' : ' '}`}}>
+        <NavLink to='/message' className={({isActive}) => { setMessageActive(isActive); return `p-3 rounded-full  ${isActive ? 'bg-purple-200' : ' '}`}}>
           <MessageCircleMore color={isMessageActive ? "Purple" : " black"}/>
         </NavLink>
         <NavLink to='/profile' end className={({isActive}) => { setProfileActive(isActive); return `p-3 rounded-full  ${isActive ? 'bg-purple-200' : ' '}`}} >
