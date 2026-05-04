@@ -3,7 +3,7 @@ import React from 'react'
 
 const ChatBottombar = () => {
   return (
-    <div className='flex gap-4 bg-white shadow p-4 items-center'>
+    <div className='flex gap-4 bg-white shadow p-4 items-center lg:rounded-t-2xl'>
         <div>
             <CirclePlus/>
         </div>

@@ -1,27 +1,30 @@
 import { Bookmark, Forward, Heart, MessageCircle } from 'lucide-react'
 import React from 'react'
 
-const PostCard = () => {
+const PostCard = ({username, avatar, timeAgo, title, postImage, likeCount, commentCount, shareCount}) => {
   return (
     <div className='mx-4 mt-4 bg-white shadow rounded-xl p-4'>
         <div className='flex'>
-            <img className='w-12 rounded-full' src="https://img.magnific.com/premium-photo/design-professional-profile-picture-with-sharp-focus-natural-lighting-clean-neutral-background_880763-20280.jpg?w=1060" alt="avtar" />
+            <img className='w-12 rounded-full' src={avatar} alt="avtar" />
             <div className='mx-4'>
-                <div className='font-semibold'>Tanuj Khedar</div>
-                <div className='text-gray-500'>2 hour ago</div>
+                <div className='font-semibold'>{username}</div>
+                <div className='text-gray-500'>{timeAgo}</div>
             </div>
         </div>
-        <div className='my-4'> aur bhai kya haal chal</div>
-            <img className='rounded-xl w-full aspect-square' src="https://img.magnific.com/premium-photo/design-professional-profile-picture-with-sharp-focus-natural-lighting-clean-neutral-background_880763-20280.jpg?w=1060" alt="post img"  />
+        <div className='my-4'> {title}</div>
+        <img className='rounded-xl w-full h-auto max-h-[80dvh] object-contain' src={postImage} alt="post img"  />
         <div className='flex justify-around mt-4'>
-            <button>
+            <button className='flex gap-4'>
                 <Heart color='gray'/>
+                <span>{likeCount}</span>
             </button>
-            <button>
+            <button className='flex gap-4'>
                 <MessageCircle color='gray'/>
+                <span>{commentCount}</span>
             </button>
-            <button>
+            <button className='flex gap-4'>
                 <Forward color='gray'/>
+                <span>{shareCount}</span>
             </button>
             <button>
                 <Bookmark color='gray'/>

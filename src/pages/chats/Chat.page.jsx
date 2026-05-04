@@ -5,7 +5,7 @@ import ChatBottombar from './ChatBottombar.component.jsx'
 
 const Chat = () => {
   return (
-    <div className='bg-gray-100 h-dvh'>
+    <div className='bg-gray-100 h-dvh overflow-y-auto'>
         <div className='sticky top-0 z-50'>
             <ChatTopbar/>
         </div>

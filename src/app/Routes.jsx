@@ -22,7 +22,13 @@ export const router = createBrowserRouter([
             },
             {
                 path : '/message',
-                element : <Message/>
+                element : <Message/>,
+                children : [
+                    {
+                        path : '/message/chat/:id',
+                        element : <Chat/>
+                    },
+                ]
             },
             {
                 path : '/profile',
@@ -33,9 +39,5 @@ export const router = createBrowserRouter([
                 element : <NotFound/>
             }
         ]
-    },
-    {
-        path : '/message/chat',
-        element : <Chat/>
     },
 ]);
