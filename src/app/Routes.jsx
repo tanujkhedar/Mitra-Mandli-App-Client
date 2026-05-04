@@ -6,6 +6,8 @@ import Profile from "../pages/profile/Profile.page.jsx";
 import Message from "../pages/message/Message.page.jsx";
 import Chat from "../pages/chats/Chat.page.jsx";
 import Reels from "../pages/reels/Reels.page.jsx";
+import SignUp from "../pages/auth/SignUp.page.jsx";
+import Login from "../pages/auth/Login.page.jsx";
 
 export const router = createBrowserRouter([
     {
@@ -40,4 +42,12 @@ export const router = createBrowserRouter([
             }
         ]
     },
+    {
+        path : '/register',
+        element : <SignUp/>
+    },
+    {
+        path : 'login',
+        element : <Login/>
+    }
 ]);
