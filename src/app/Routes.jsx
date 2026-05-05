@@ -8,7 +8,7 @@ import Chat from "../pages/chats/Chat.page.jsx";
 import Reels from "../pages/reels/Reels.page.jsx";
 import SignUp from "../pages/auth/SignUp.page.jsx";
 import Login from "../pages/auth/Login.page.jsx";
-import { ProtectedRoutes } from "./protected.routes.jsx";
+import ProtectedRoutes from "./protected.routes.jsx";
 
 export const router = createBrowserRouter([
     {

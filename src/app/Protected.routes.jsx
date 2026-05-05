@@ -1,8 +1,7 @@
-import { Divide } from "lucide-react";
 import { useSelector } from "react-redux"
 import { Navigate } from "react-router-dom";
 
-export const ProtectedRoutes = ({children}) => {
+const ProtectedRoutes = ({children}) => {
   const {isAuth, pending} = useSelector((state) => state.auth);
 
   if(pending) {
@@ -12,3 +11,5 @@ export const ProtectedRoutes = ({children}) => {
 
   return isAuth ? children : <Navigate to='/login' replace/>
 }
+
+export default ProtectedRoutes
