@@ -1,8 +1,17 @@
 import { Outlet } from "react-router-dom"
 import BottomNavbar from "./BottomNavbar.component.jsx"
 import LeftNavbar from "./LeftNavbar.component.jsx"
+import { useEffect } from "react"
+import { useDispatch } from "react-redux"
+import { getUser } from "../pages/auth/getUser.api.js"
 
 const MainLayout = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUser());
+  }, []);
+
   return (
     <div className="flex flex-col lg:flex-row h-dvh bg-gray-100 overscroll-none">
       <div className="hidden lg:block lg:w-xs">

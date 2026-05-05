@@ -8,6 +8,7 @@ import Chat from "../pages/chats/Chat.page.jsx";
 import Reels from "../pages/reels/Reels.page.jsx";
 import SignUp from "../pages/auth/SignUp.page.jsx";
 import Login from "../pages/auth/Login.page.jsx";
+import { ProtectedRoutes } from "./protected.routes.jsx";
 
 export const router = createBrowserRouter([
     {
@@ -16,29 +17,53 @@ export const router = createBrowserRouter([
         children : [
             {
                 path : '/',
-                element : <Home/>
+                element :( 
+                    <ProtectedRoutes>
+                        <Home/>
+                    </ProtectedRoutes>
+                )
             },
             {
                 path : '/reels',
-                element : <Reels/>
+                element : ( 
+                    <ProtectedRoutes>
+                        <Reels/>
+                    </ProtectedRoutes>
+                )
             },
             {
                 path : '/message',
-                element : <Message/>,
+                element : ( 
+                    <ProtectedRoutes>
+                        <Message/>
+                    </ProtectedRoutes>
+                ),
                 children : [
                     {
                         path : '/message/chat/:id',
-                        element : <Chat/>
+                        element : ( 
+                            <ProtectedRoutes>
+                                <Chat/>
+                            </ProtectedRoutes>
+                )
                     },
                 ]
             },
             {
                 path : '/profile',
-                element : <Profile/>
+                element : ( 
+                    <ProtectedRoutes>
+                        <Profile/>
+                    </ProtectedRoutes>
+                )
             },
             {
                 path : '*',
-                element : <NotFound/>
+                element : ( 
+                    <ProtectedRoutes>
+                        <NotFound/>
+                    </ProtectedRoutes>
+                )
             }
         ]
     },
