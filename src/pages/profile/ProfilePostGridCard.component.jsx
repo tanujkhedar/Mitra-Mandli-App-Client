@@ -1,9 +1,13 @@
-import React from 'react'
 
-const ProfilePostGridCard = ({postImage}) => {
+
+const ProfilePostGridCard = ({ postImage }) => {
   return (
-    <div className='w-1/3'>
-        <img className='w-full aspect-square object-cover p-0.5 rounded' src={postImage} alt="post" />
+    <div className='aspect-square overflow-hidden'>
+      <img
+        className='w-full h-full object-cover'
+        src={postImage}
+        alt="post"
+      />
     </div>
   )
 }

@@ -13,8 +13,14 @@ const MainLayout = () => {
   }, []);
 
   return (
-    <div className="flex flex-col lg:flex-row h-dvh bg-gray-100 overscroll-none">
-      <div className="hidden lg:block lg:w-xs">
+    <div className="flex 
+    flex-col 
+    lg:flex-row 
+    h-dvh 
+    bg-white 
+    text-black
+    ">
+      <div className="hidden lg:block">
         <LeftNavbar/>
       </div>
       <div className="flex-1 overflow-y-auto">

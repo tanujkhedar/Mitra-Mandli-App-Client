@@ -3,7 +3,14 @@ import React from 'react'
 
 const ChatComp = () => {
   return (
-    <div className='w-2/3 bg-white rounded-2xl p-4 shadow m-4'>
+    <div className='
+    w-2/3 
+    rounded-2xl 
+    p-4 
+    shadow-xl 
+    m-4
+    border
+    border-gray-300'>
         <div className='font-medium'>aur sab badhiya</div>
         <div className='flex gap-4 flex-row-reverse'>
             <div>

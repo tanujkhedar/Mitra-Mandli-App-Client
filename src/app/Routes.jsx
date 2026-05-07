@@ -9,6 +9,7 @@ import Reels from "../pages/reels/Reels.page.jsx";
 import SignUp from "../pages/auth/SignUp.page.jsx";
 import Login from "../pages/auth/Login.page.jsx";
 import ProtectedRoutes from "./Protected.routes.jsx";
+import UploadPage from "../pages/upload/Upload.page.jsx";
 
 export const router = createBrowserRouter([
     {
@@ -28,6 +29,14 @@ export const router = createBrowserRouter([
                 element : ( 
                     <ProtectedRoutes>
                         <Reels/>
+                    </ProtectedRoutes>
+                )
+            },
+            {
+                path : '/upload',
+                element : (
+                    <ProtectedRoutes>
+                        <UploadPage/>
                     </ProtectedRoutes>
                 )
             },

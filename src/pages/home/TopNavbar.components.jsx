@@ -3,9 +3,22 @@ import app_logo from '../../assets/Mitra_Mandli_App_Logo.png'
 
 const TopNavbar = () => {
   return (
-    <div className='flex justify-between border border-gray-300 bg-white shadow'>
-        <div className='m-4 flex items-center'>
-            <img className='w-40' src={app_logo} alt="App Logo" />
+    <div className='
+    h-full 
+    flex 
+    justify-between 
+    items-center 
+    border-b 
+    border-gray-300 
+    bg-white shadow 
+    lg:shadow-[0]'>
+        <div className='
+        m-4 
+        flex 
+        items-center'>
+            <img className='w-40' 
+            src={app_logo} 
+            alt="App Logo" />
         </div>
         <div className='m-4 flex'>
             <button><Search/></button>

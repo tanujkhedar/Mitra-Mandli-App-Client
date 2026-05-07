@@ -3,7 +3,15 @@ import React from 'react'
 
 const ChatTopbar = () => {
   return (
-    <div className='flex justify-between p-4 bg-white shadow lg:rounded-b-2xl'>
+    <div className='
+    flex 
+    justify-between 
+    p-4 
+    shadow 
+    border-b
+    border-gray-300
+    bg-white
+    lg:rounded-b-2xl'>
         <div className='flex items-center'>
             <ArrowBigLeft/>
         </div>

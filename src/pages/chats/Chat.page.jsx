@@ -5,7 +5,7 @@ import ChatBottombar from './ChatBottombar.component.jsx'
 
 const Chat = () => {
   return (
-    <div className='bg-gray-100 h-dvh overflow-y-auto'>
+    <div className='h-full overflow-y-auto'>
         <div className='sticky top-0 z-50'>
             <ChatTopbar/>
         </div>
@@ -45,7 +45,7 @@ const Chat = () => {
         <div>
             <ChatComp/>
         </div>
-        <div className='sticky bottom-0 z-50'>
+        <div className='sticky bottom-0 p-4 z-50'>
             <ChatBottombar/>
         </div>
     </div>

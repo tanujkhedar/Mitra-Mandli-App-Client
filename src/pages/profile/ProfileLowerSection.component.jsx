@@ -210,21 +210,50 @@ const ownedPosts = [
 
 
   return (
-    <div className=' bg-white lg:p-4 lg:shadow'>
-        <div className='flex justify-around p-4'>
-            <button>
-                <Grid3X3/>
-            </button>
-            <button>
-                <Film/>
-            </button>
-            <button>
-                <Bookmark/>
-            </button>
-        </div>
-        <div className='flex shrink-0 flex-wrap'>
-            {ownedPosts.map((item, i) => <ProfilePostGridCard postImage={item.postImage}/>)}
-        </div>
+
+    <div className='bg-white'>
+
+      {/* Tabs */}
+      <div className='
+      sticky
+      top-0
+      z-10
+      bg-white
+      flex
+      justify-around
+      py-4
+      border-b
+      border-gray-300
+      '>
+
+        <button>
+          <Grid3X3 />
+        </button>
+
+        <button>
+          <Film />
+        </button>
+
+        <button>
+          <Bookmark />
+        </button>
+
+      </div>
+
+      {/* Grid */}
+      <div className='grid grid-cols-3 gap-1'>
+
+        {
+          ownedPosts.map((item, i) => (
+            <ProfilePostGridCard
+              key={i}
+              postImage={item.postImage}
+            />
+          ))
+        }
+
+      </div>
+
     </div>
   )
 }

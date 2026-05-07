@@ -3,7 +3,7 @@ import ReelCard from './ReelCard.component.jsx'
 
 const Reels = () => {
 
-const reels = [
+ const reels = [
   {
     username: "Aarav Sharma",
     avatar: "https://i.pravatar.cc/150?img=11",
@@ -189,9 +189,20 @@ const reels = [
 
 
   return (
-    <div className='h-full overflow-scroll snap-y snap-mandatory'>
+    <div className='
+    h-full 
+    overflow-scroll 
+    snap-y 
+    snap-mandatory'>
       <div className='h-full'>
-        {reels.map((item, i) => <ReelCard username={item.username} avatar={item.avatar} video={item.video} likeCount={item.likeCount} commentCount={item.commentCount} shareCount={item.shareCount} />)}
+        {reels.map((item, i) => 
+        <ReelCard 
+        username={item.username} 
+        avatar={item.avatar} 
+        video={item.video} 
+        likeCount={item.likeCount} 
+        commentCount={item.commentCount} 
+        shareCount={item.shareCount} />)}
       </div>
     </div>
   )

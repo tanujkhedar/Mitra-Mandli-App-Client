@@ -3,12 +3,36 @@ import React from 'react'
 
 const ChatBottombar = () => {
   return (
-    <div className='flex gap-4 bg-white shadow p-4 items-center lg:rounded-t-2xl'>
+    <div className='
+    flex 
+    gap-4 
+    shadow-2xl 
+    p-4 
+    items-center
+    justify-center
+    bg-white
+    border
+    border-gray-300 
+    rounded-l-full
+    rounded-r-full
+    z-50
+    '>
         <div>
             <CirclePlus/>
         </div>
         <div className='flex-1'>
-            <input className='w-full h-9 p-4 border-2 rounded-3xl' type="text" name="" id="" placeholder='something say' />
+            <input 
+            className='
+            wrap-normal
+            w-full
+            min-h-10
+            rounded-4xl
+            border
+            border-gray-400'
+            type="text" 
+            name="" 
+            id="" 
+            placeholder='Say something'/>
         </div>
         <div>
             <Mic/>
