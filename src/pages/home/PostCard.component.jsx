@@ -5,7 +5,7 @@ const PostCard = ({username, avatar, timeAgo, title, postImage, likeCount, comme
     <div className='
     mx-4 
     mt-4 
-    shadow-2xl
+    shadow-xl
     border
     border-gray-300 
     rounded-xl 

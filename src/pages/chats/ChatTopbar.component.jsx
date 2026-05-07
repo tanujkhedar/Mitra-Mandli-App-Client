@@ -6,7 +6,8 @@ const ChatTopbar = () => {
     <div className='
     flex 
     justify-between 
-    p-4 
+    px-4
+    py-6 
     shadow 
     border-b
     border-gray-300
