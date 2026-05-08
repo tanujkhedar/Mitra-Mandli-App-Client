@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import app_logo from '../../assets/app_logo.png'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { registerUser } from './register.api.js'
+import { registerUser } from '../../features/auth/register.api.js'
 
 const SignUp = () => {
 

@@ -1,6 +1,6 @@
 import app_logo from '../../assets/app_logo.png'
 import { useDispatch, useSelector } from 'react-redux'
-import { loginUser } from './login.api.js'
+import { loginUser } from '../../features/auth/login.api.js'
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 

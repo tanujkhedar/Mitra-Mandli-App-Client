@@ -7,7 +7,7 @@ const ChatTopbar = () => {
     flex 
     justify-between 
     px-4
-    py-6 
+    py-4.5 
     shadow 
     border-b
     border-gray-300

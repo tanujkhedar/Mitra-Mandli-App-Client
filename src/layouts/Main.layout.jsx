@@ -2,14 +2,17 @@ import { Outlet } from "react-router-dom"
 import BottomNavbar from "./BottomNavbar.component.jsx"
 import LeftNavbar from "./LeftNavbar.component.jsx"
 import { useEffect } from "react"
-import { useDispatch } from "react-redux"
-import { getUser } from "../pages/auth/getUser.api.js"
+import { useDispatch, useSelector } from "react-redux"
+import { getUser } from "../features/auth/getUser.api.js"
 
 const MainLayout = () => {
   const dispatch = useDispatch();
+  const {isAuth} = useSelector((state) => state.auth);
 
   useEffect(() => {
-    dispatch(getUser());
+    if(!isAuth) {
+      dispatch(getUser());
+    }
   }, []);
 
   return (

@@ -1,9 +1,28 @@
 import { useSelector } from "react-redux"
+import { useState } from "react"
+import EditProfileSection from "./EditProfileSection.component.jsx"
 
 
 const ProfileUpperSection = () => {
 
   const {user} = useSelector((state) => state.auth);
+  const [showEditProfile, setShowEditProfile] = useState(false);
+
+  const handleEditProfile = () => {
+    setShowEditProfile(true);
+  }
+
+  const handleShareProfile = () => {
+    // Implement share profile functionality here
+  }
+
+  const handleFollowers = () => {
+    //navigate('/profile/followlist/followers');
+  }
+
+  const handleFollowing = () => {
+    //navigate('/profile/followlist/following');
+  }
 
 
   return (
@@ -69,8 +88,8 @@ const ProfileUpperSection = () => {
             </p>
           </div>
 
-          <p className='mt-4 text-center font-medium'>
-            Lorem ipsum dolor sit amet consectetur.
+          <p className='mt-4 text-center font-medium overflow-hidden h-5 w-full lg:w-3/4 text-gray-700'>
+            Lorem ipsum dolor sit amet consectetur. Quisquam, quae. Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, voluptate.
           </p>
 
           <div className='
@@ -81,7 +100,7 @@ const ProfileUpperSection = () => {
           text-center
           '>
 
-            <div>
+            <div className="p-2">
               <div className='text-2xl lg:text-4xl font-bold'>
                 9
               </div>
@@ -90,23 +109,39 @@ const ProfileUpperSection = () => {
               </div>
             </div>
 
-            <div>
+            <button className="
+            p-2
+            hover:cursor-pointer
+            hover:border-2
+            hover:bg-violet-100
+            border-violet-200
+            rounded-lg
+            focus:bg-violet-200"
+            onClick={handleFollowers}>
               <div className='text-2xl lg:text-4xl font-bold'>
                 {user.followerCount}
               </div>
               <div className='text-gray-600 font-semibold'>
                 Followers
               </div>
-            </div>
+            </button>
 
-            <div>
+            <button className="
+            p-2
+            hover:cursor-pointer
+            hover:border-2
+            hover:bg-violet-100
+            border-violet-200
+            rounded-lg
+            focus:bg-violet-200"
+            onClick={handleFollowing}>
               <div className='text-2xl lg:text-4xl font-bold'>
                 {user.followingCount}
               </div>
               <div className='text-gray-600 font-semibold'>
                 Following
               </div>
-            </div>
+            </button>
 
           </div>
 
@@ -126,7 +161,11 @@ const ProfileUpperSection = () => {
             text-white
             font-semibold
             shadow-lg
-            '>
+            hover:bg-violet-700
+            hover:cursor-pointer
+            focus:rounded-4xl
+            '
+            onClick={handleEditProfile}>
               Edit Profile
             </button>
 
@@ -139,7 +178,11 @@ const ProfileUpperSection = () => {
             text-white
             font-semibold
             shadow-lg
-            '>
+            hover:bg-violet-700
+            hover:cursor-pointer
+            focus:rounded-4xl
+            '
+            onClick={handleShareProfile}>
               Share Profile
             </button>
 
@@ -149,6 +192,29 @@ const ProfileUpperSection = () => {
 
       </div>
 
+      {showEditProfile && <div className='
+      fixed 
+      top-0 
+      left-0 
+      w-full 
+      h-full 
+      flex 
+      items-center 
+      justify-center 
+      z-50
+      bg-black/80'>
+        <div className='
+        overflow-y-auto
+        bg-white 
+        p-4 
+        rounded-lg 
+        shadow-lg 
+        w-11/12 
+        max-h-[70vh]
+        max-w-1/2'>
+          <EditProfileSection onClose={() => setShowEditProfile(false)} />
+        </div>
+      </div>}
     </div>
   )
 }

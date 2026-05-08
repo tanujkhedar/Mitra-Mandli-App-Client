@@ -1,14 +1,15 @@
 import { useSelector } from "react-redux"
 import { Navigate } from "react-router-dom";
+import LoadingPage from "../pages/loading/Loading.page.jsx";
 
 const ProtectedRoutes = ({children}) => {
   const {isAuth, pending} = useSelector((state) => state.auth);
 
   if(pending) {
-    return <div className="h-dvh w-full flex items-center justify-center"><h1>Loading</h1></div>
+    
+    return <LoadingPage/>
   }
   
-
   return isAuth ? children : <Navigate to='/login' replace/>
 }
 

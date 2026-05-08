@@ -9,7 +9,7 @@ export const AuthSlice = createSlice({
   initialState: {
     user: null,
     isAuth: false,
-    pending: false,
+    pending: true,
     error: null,
   },
 
@@ -36,6 +36,8 @@ export const AuthSlice = createSlice({
 
       .addCase(getUser.rejected, (state, action) => {
         state.pending = false;
+        state.user = null;
+        state.isAuth = false;
         state.error = action.payload.message || "Auth failed";
       })
       .addCase(loginUser.pending, (state) => {
@@ -51,6 +53,8 @@ export const AuthSlice = createSlice({
 
       .addCase(loginUser.rejected, (state, action) => {
         state.pending = false;
+        state.user = null;
+        state.isAuth = false;
         state.error = action.payload.message || "Login failed";
       })
       .addCase(registerUser.pending, (state) => {
@@ -66,6 +70,8 @@ export const AuthSlice = createSlice({
 
       .addCase(registerUser.rejected, (state, action) => {
         state.pending = false;
+        state.user = null;
+        state.isAuth = false;
         state.error = action.payload.message || "SignUp failed";
       });
   },

@@ -64,8 +64,8 @@ export const router = createBrowserRouter([
                     <ProtectedRoutes>
                         <Profile/>
                     </ProtectedRoutes>
-                )
-            },
+                ),
+            },    
             {
                 path : '*',
                 element : ( 
