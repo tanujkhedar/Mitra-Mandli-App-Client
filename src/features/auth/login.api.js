@@ -1,5 +1,4 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 import { api } from "../../app/Api.js";
 
 export const loginUser = createAsyncThunk(
@@ -8,11 +7,7 @@ export const loginUser = createAsyncThunk(
         try {
             const response = await api.post(
                 '/api/v1/user/login', 
-                userData, 
-                {
-                    withCredentials : true,
-                    
-                }
+                userData,
             )
 
             return response.data;
