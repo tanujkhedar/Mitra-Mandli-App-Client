@@ -211,7 +211,7 @@ const ProfileUpperSection = () => {
         shadow-lg 
         w-11/12 
         max-h-[70vh]
-        max-w-1/2'>
+        max-w-3xl'>
           <EditProfileSection onClose={() => setShowEditProfile(false)} />
         </div>
       </div>}

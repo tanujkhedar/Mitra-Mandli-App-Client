@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-export const updateUserName = createAsyncThunk(
-    "auth/updateUserName",
+export const updateUsername = createAsyncThunk(
+    "auth/updateUsername",
     async (data, thunkApi) => {
         try {
             const response = await api.patch('api/v1/user/updateusername', data);

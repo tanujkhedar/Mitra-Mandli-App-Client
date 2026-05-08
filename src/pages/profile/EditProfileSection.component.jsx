@@ -1,31 +1,50 @@
 import { Upload, X } from "lucide-react"
 import { useState, useRef } from "react"
 import { useDispatch, useSelector } from "react-redux"
+import { updateEmail } from "../../features/auth/updateEmail.api.js"
+import { updateCommonDetails } from "../../features/auth/updateCommonDetails.api.js"
+import { updateAvtar } from "../../features/auth/updateAvatar.api.js"
+import { updatePassword } from "../../features/auth/updatePassword.api.js"
+import { updateUsername } from "../../features/auth/updateUsername.api.js"
 
 
 const EditProfilePage = ({onClose}) => {
 
   const [email, setEmail] = useState('');
   const [fullName, setFullName] = useState('');
-  const [username, setUsername] = useState('');
+  const [userName, setUsername] = useState('');
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [avatar, setAvatar] = useState(null);
   const [isPrivateAccount, setIsPrivateAccount] = useState(false);
   const fileInputRef = useRef(null);
   const dispatch = useDispatch();
-  const {user} = useSelector((state) => state.auth);
+  const {user, pending, error} = useSelector((state) => state.auth);
 
-  const handleUpdateEmail = () => {}
-  const handleUpdateFullName = () => {}
-  const handleUpdateUsername = () => {}
-  const handleUpdatePassword = () => {}
-  const handleUpdateImage = () => {}
+  const handleUpdateEmail = (e) => {
+    e.preventDefault();
+    dispatch(updateEmail({email}));
+  }
+  const handleUpdateFullName = () => {
+    dispatch(updateCommonDetails({fullName}));
+  }
+  const handleUpdateUsername = () => {
+    dispatch(updateUsername({userName}));
+  }
+  const handleUpdatePassword = () => {
+    dispatch(updatePassword({oldPassword, newPassword}));
+  }
+  const handleUpdateImage = () => {
+    dispatch(updateAvtar({avatar}));
+    console.log("hello");
+    
+  }
   const handleLoadImage = () => {
     fileInputRef.current.click();
   }
-  const handleUpdatePrivacy = () => {}
-  const handleUpdatePrivateAccount = () => {}
+  const handleUpdatePrivateAccount = () => {
+    dispatch(updateCommonDetails({isProfilePublic: !isPrivateAccount}));
+  }
 
   return (
     <div className="
@@ -122,7 +141,6 @@ const EditProfilePage = ({onClose}) => {
         name="" 
         id=""
         placeholder={user.email}
-        value={email}
         onChange={(e) => setEmail(e.target.value)} />
 
         <button className="
@@ -133,7 +151,7 @@ const EditProfilePage = ({onClose}) => {
         hover:bg-violet-700
         hover:cursor-pointer
         focus:rounded-4xl
-        focus:bg-violet-700" onClick={handleUpdateEmail}>Update</button>
+        focus:bg-violet-700" onClick={(e) => handleUpdateEmail(e)}>Update</button>
       </div>
 
       <div className='
@@ -156,7 +174,6 @@ const EditProfilePage = ({onClose}) => {
         name="" 
         id=""
         placeholder={user.fullName}
-        value={fullName}
         onChange={(e) => setFullName(e.target.value)} />
 
         <button className="
@@ -190,7 +207,6 @@ const EditProfilePage = ({onClose}) => {
         name="" 
         id=""
         placeholder={user.userName}
-        value={username}
         onChange={(e) => setUsername(e.target.value)} />
 
         <button className="
@@ -227,7 +243,6 @@ const EditProfilePage = ({onClose}) => {
         name="" 
         id=""
         placeholder="old password"
-        value={oldPassword}
         onChange={(e) => setOldPassword(e.target.value)} />
 
         <input className="
@@ -242,7 +257,6 @@ const EditProfilePage = ({onClose}) => {
         name="" 
         id=""
         placeholder="new password"
-        value={newPassword}
         onChange={(e) => setNewPassword(e.target.value)} />
        </div>
 
@@ -272,7 +286,7 @@ const EditProfilePage = ({onClose}) => {
           type="checkbox" 
           name="" 
           id="" 
-          checked={user.isPrivateAccount}
+          checked={user.isProfilePublic === false}
           onChange={(e) => setIsPrivateAccount(e.target.checked)}
           />
           is private account
@@ -286,6 +300,16 @@ const EditProfilePage = ({onClose}) => {
         hover:cursor-pointer
         focus:rounded-4xl
         focus:bg-violet-700" onClick={handleUpdatePrivateAccount}>Update</button>
+
+        {error && <p className="
+        text-red-500
+        fixed
+        bottom-4
+        bg-red-100
+        p-2
+        rounded-lg
+        shadow-lg
+        ">{error}</p>}
       </div>
     </div>
   )
