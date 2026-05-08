@@ -35,8 +35,8 @@ const EditProfilePage = ({onClose}) => {
     dispatch(updatePassword({oldPassword, newPassword}));
   }
   const handleUpdateImage = () => {
-    dispatch(updateAvtar({avatar}));
-    console.log("hello");
+    dispatch(updateAvtar({avtar: avatar}));
+    console.log("hello", avatar);
     
   }
   const handleLoadImage = () => {
