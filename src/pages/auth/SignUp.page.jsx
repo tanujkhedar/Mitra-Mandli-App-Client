@@ -116,12 +116,23 @@ const SignUp = () => {
         focus:outline-none 
         focus:border-violet-500" 
         onChange={(e) =>{setPassword(e.target.value)}}/>
-        <div className='
-        text-center 
-        text-sm 
-        text-red-800'>
-          {auth.error}
-        </div>
+        {auth.error && (
+          <div className='
+          text-center 
+          text-sm 
+          text-red-800'>
+            {auth.error}
+          </div>
+        )}
+
+        {auth.responseMessage && (
+          <div className='
+          text-center 
+          text-sm 
+          text-green-800'>
+            {auth.responseMessage}
+          </div>
+        )}
 
         <button className="
         w-full 
@@ -130,7 +141,16 @@ const SignUp = () => {
         bg-linear-to-r 
         from-purple-600 
         to-violet-500 
-        font-semibold"
+        font-semibold
+        focus:bg-lenear-to-r 
+        focus:from-purple-700 
+        focus:to-violet-600 
+        transition-colors 
+        duration-300 
+        text-white
+        hover:bg-linear-to-r 
+        hover:from-purple-500 
+        hover:to-violet-400"
         onClick={submitHandler}>
           {auth.pending ? "Loading..." : "Sign Up"}
         </button>
@@ -143,7 +163,12 @@ const SignUp = () => {
         w-full 
         p-3 
         rounded-lg 
-        bg-gray-300">
+        bg-gray-300
+        focus:bg-gray-400
+        hover:bg-gray-400
+        transition-colors 
+        duration-300 
+        text-gray-700">
           Continue with Google
         </button>
 

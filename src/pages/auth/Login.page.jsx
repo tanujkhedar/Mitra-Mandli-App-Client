@@ -85,12 +85,23 @@ const Login = () => {
           onChange={(e) => {setPassword(e.target.value)}}
         />
 
-        <div className='
-        text-center 
-        text-sm 
-        text-red-800'>
-          {auth.error}
-        </div>
+        {auth.error && (
+          <div className='
+          text-center 
+          text-sm 
+          text-red-800'>
+            {auth.error}
+          </div>
+        )}
+
+        {auth.responseMessage && (
+          <div className="
+          text-center 
+          text-sm 
+          text-green-800">
+            {auth.responseMessage}
+          </div>
+        )}
 
         <div className="
         text-right 
@@ -106,7 +117,16 @@ const Login = () => {
         bg-linear-to-r 
         from-purple-600 
         to-violet-500 
-        font-semibold" 
+        font-semibold
+        focus:bg-linear-to-r 
+        focus:from-purple-700 
+        focus:to-violet-600 
+        transition-colors 
+        duration-300 
+        text-white
+        hover:bg-linear-to-r 
+        hover:from-purple-500 
+        hover:to-violet-400" 
         onClick={loginHeandler}>
           {auth.pending ? "Loading..." : "Login"}
         </button>
@@ -117,7 +137,12 @@ const Login = () => {
 
         <button className="
         w-full p-3 rounded-lg 
-        bg-gray-300">
+        bg-gray-300
+        focus:bg-gray-400
+        transition-colors 
+        duration-300 
+        text-gray-700
+        hover:bg-gray-400">
           Continue with Google
         </button>
 
