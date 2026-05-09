@@ -6,7 +6,7 @@ export const updateAvtar = createAsyncThunk(
     'auth/updateAvtar',
     async (data, thunkApi) => {
         try {
-            const response = await api.patch('api/v1/user/updateavatar', data);
+            const response = await api.patch('/user/updateavatar', data);
 
             return response.data;
         } catch (error) {

@@ -1,5 +1,6 @@
 import { Upload, X } from "lucide-react"
 import { useState, useRef } from "react"
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux"
 import { updateEmail } from "../../features/auth/updateEmail.api.js"
 import { updateCommonDetails } from "../../features/auth/updateCommonDetails.api.js"
@@ -8,7 +9,7 @@ import { updatePassword } from "../../features/auth/updatePassword.api.js"
 import { updateUsername } from "../../features/auth/updateUsername.api.js"
 
 
-const EditProfilePage = ({onClose}) => {
+const EditProfilePage = () => {
 
   const [email, setEmail] = useState('');
   const [fullName, setFullName] = useState('');
@@ -20,29 +21,36 @@ const EditProfilePage = ({onClose}) => {
   const fileInputRef = useRef(null);
   const dispatch = useDispatch();
   const {user, pending, error} = useSelector((state) => state.auth);
+  const navigate = useNavigate();
 
   const handleUpdateEmail = (e) => {
     e.preventDefault();
+    //e.stopPropagation();
     dispatch(updateEmail({email}));
   }
-  const handleUpdateFullName = () => {
+  const handleUpdateFullName = (e) => {
+    e.preventDefault();
     dispatch(updateCommonDetails({fullName}));
   }
-  const handleUpdateUsername = () => {
+  const handleUpdateUsername = (e) => {
+    e.preventDefault();
     dispatch(updateUsername({userName}));
   }
-  const handleUpdatePassword = () => {
+  const handleUpdatePassword = (e) => {
+    e.preventDefault();
     dispatch(updatePassword({oldPassword, newPassword}));
   }
-  const handleUpdateImage = () => {
-    dispatch(updateAvtar({avtar: avatar}));
-    console.log("hello", avatar);
-    
+  const handleUpdateImage = (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("avatar", avatar);
+    dispatch(updateAvtar(formData));
   }
   const handleLoadImage = () => {
     fileInputRef.current.click();
   }
-  const handleUpdatePrivateAccount = () => {
+  const handleUpdatePrivateAccount = (e) => {
+    e.preventDefault();
     dispatch(updateCommonDetails({isProfilePublic: !isPrivateAccount}));
   }
 
@@ -67,7 +75,8 @@ const EditProfilePage = ({onClose}) => {
       text-gray-500
       hover:text-gray-700
       hover:cursor-pointer"
-      onClick={onClose}>
+      onClick={() => navigate(-1)}
+      type="button">
         <X size='30' />
       </button>
 
@@ -97,7 +106,14 @@ const EditProfilePage = ({onClose}) => {
         border
         border-gray-300"
         onClick={handleLoadImage}>
-          <Upload size='40'/>
+          {avatar ? (
+            <img 
+            src={URL.createObjectURL(avatar)} 
+            alt="avatar" 
+            className="w-full h-full rounded-full object-cover" />
+          ) : (
+            <Upload size='40'/>
+          )}
           <input className="
           hidden"
           accept="image/*"
@@ -116,7 +132,9 @@ const EditProfilePage = ({onClose}) => {
         hover:bg-violet-700
         hover:cursor-pointer
         focus:rounded-4xl
-        focus:bg-violet-700" onClick={handleUpdateImage}>
+        focus:bg-violet-700" 
+        type="button"
+        onClick={handleUpdateImage}>
           Update Image
         </button>
       </div>
@@ -151,7 +169,11 @@ const EditProfilePage = ({onClose}) => {
         hover:bg-violet-700
         hover:cursor-pointer
         focus:rounded-4xl
-        focus:bg-violet-700" onClick={(e) => handleUpdateEmail(e)}>Update</button>
+        focus:bg-violet-700" 
+        onClick={handleUpdateEmail}
+        type="button">
+          Update
+        </button>
       </div>
 
       <div className='
@@ -184,7 +206,11 @@ const EditProfilePage = ({onClose}) => {
         hover:bg-violet-700
         hover:cursor-pointer
         focus:rounded-4xl
-        focus:bg-violet-700" onClick={handleUpdateFullName}>Update</button>
+        focus:bg-violet-700" 
+        onClick={handleUpdateFullName}
+        type="button">
+          Update
+        </button>
       </div>
 
       <div className='
@@ -217,7 +243,11 @@ const EditProfilePage = ({onClose}) => {
         hover:bg-violet-700
         hover:cursor-pointer
         focus:rounded-4xl
-        focus:bg-violet-700" onClick={handleUpdateUsername}>Update</button>
+        focus:bg-violet-700" 
+        onClick={handleUpdateUsername}
+        type="button">
+          Update
+        </button>
       </div>
 
       <div className='
@@ -269,6 +299,7 @@ const EditProfilePage = ({onClose}) => {
         hover:cursor-pointer
         focus:rounded-4xl
         focus:bg-violet-700"
+        type="button"
         onClick={handleUpdatePassword}>Update</button>
       </div>
 
@@ -286,7 +317,7 @@ const EditProfilePage = ({onClose}) => {
           type="checkbox" 
           name="" 
           id="" 
-          checked={user.isProfilePublic === false}
+          defaultChecked={user.isProfilePublic === false}
           onChange={(e) => setIsPrivateAccount(e.target.checked)}
           />
           is private account
@@ -299,7 +330,11 @@ const EditProfilePage = ({onClose}) => {
         hover:bg-violet-700
         hover:cursor-pointer
         focus:rounded-4xl
-        focus:bg-violet-700" onClick={handleUpdatePrivateAccount}>Update</button>
+        focus:bg-violet-700" 
+        onClick={handleUpdatePrivateAccount}
+        type="button">
+          Update
+        </button>
 
         {error && <p className="
         text-red-500

@@ -5,7 +5,7 @@ export const deleteAccount = createAsyncThunk(
   "auth/deleteAccount",
   async (data, thunkApi) => {
     try {
-        const response = await api.delete("/api/v1/user/delete", {
+        const response = await api.delete("/user/delete", {
             data : data
         });
         return response.data;

@@ -10,6 +10,7 @@ import SignUp from "../pages/auth/SignUp.page.jsx";
 import Login from "../pages/auth/Login.page.jsx";
 import ProtectedRoutes from "./Protected.routes.jsx";
 import UploadPage from "../pages/upload/Upload.page.jsx";
+import EditProfileSection from "../pages/profile/EditProfileSection.component.jsx";
 
 export const router = createBrowserRouter([
     {
@@ -65,6 +66,16 @@ export const router = createBrowserRouter([
                         <Profile/>
                     </ProtectedRoutes>
                 ),
+                children : [
+                    {
+                        path : '/profile/edit-profile',
+                        element : ( 
+                            <ProtectedRoutes>
+                                <EditProfileSection/>
+                            </ProtectedRoutes>
+                        )
+                    }
+                ]
             },    
             {
                 path : '*',

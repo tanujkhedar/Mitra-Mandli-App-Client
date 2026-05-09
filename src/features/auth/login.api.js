@@ -6,7 +6,7 @@ export const loginUser = createAsyncThunk(
     async (userData, thunkApi) => {
         try {
             const response = await api.post(
-                '/api/v1/user/login', 
+                '/user/login', 
                 userData,
             )
 

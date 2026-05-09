@@ -1,16 +1,13 @@
 import { useSelector } from "react-redux"
 import { useState } from "react"
 import EditProfileSection from "./EditProfileSection.component.jsx"
+import {Link, Outlet, useLocation } from "react-router-dom";
 
 
 const ProfileUpperSection = () => {
 
   const {user} = useSelector((state) => state.auth);
-  const [showEditProfile, setShowEditProfile] = useState(false);
-
-  const handleEditProfile = () => {
-    setShowEditProfile(true);
-  }
+  const location = useLocation();
 
   const handleShareProfile = () => {
     // Implement share profile functionality here
@@ -71,7 +68,7 @@ const ProfileUpperSection = () => {
             border-white
             lg:shadow-2xl
             '
-            src="https://img.magnific.com/premium-photo/design-professional-profile-picture-with-sharp-focus-natural-lighting-clean-neutral-background_880763-20280.jpg?w=1060"
+            src={user.avatar?.url}
             alt="avatar"
           />
         </div>
@@ -88,7 +85,7 @@ const ProfileUpperSection = () => {
             </p>
           </div>
 
-          <p className='mt-4 text-center font-medium overflow-hidden h-5 w-full lg:w-3/4 text-gray-700'>
+          <p className='mt-4 text-center font-medium overflow-hidden h-5 w-2xs text-gray-700'>
             Lorem ipsum dolor sit amet consectetur. Quisquam, quae. Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, voluptate.
           </p>
 
@@ -117,6 +114,7 @@ const ProfileUpperSection = () => {
             border-violet-200
             rounded-lg
             focus:bg-violet-200"
+            type="button"
             onClick={handleFollowers}>
               <div className='text-2xl lg:text-4xl font-bold'>
                 {user.followerCount}
@@ -134,6 +132,7 @@ const ProfileUpperSection = () => {
             border-violet-200
             rounded-lg
             focus:bg-violet-200"
+            type="button"
             onClick={handleFollowing}>
               <div className='text-2xl lg:text-4xl font-bold'>
                 {user.followingCount}
@@ -152,10 +151,12 @@ const ProfileUpperSection = () => {
           justify-around
           '>
 
-            <button className='
+            <Link className='
             h-14
             w-45
-            px-10
+            flex
+            items-center
+            justify-center
             rounded-xl
             bg-violet-600
             text-white
@@ -165,9 +166,9 @@ const ProfileUpperSection = () => {
             hover:cursor-pointer
             focus:rounded-4xl
             '
-            onClick={handleEditProfile}>
+            to="/profile/edit-profile">
               Edit Profile
-            </button>
+            </Link>
 
             <button className='
             h-14
@@ -182,6 +183,7 @@ const ProfileUpperSection = () => {
             hover:cursor-pointer
             focus:rounded-4xl
             '
+            type="button"
             onClick={handleShareProfile}>
               Share Profile
             </button>
@@ -192,7 +194,7 @@ const ProfileUpperSection = () => {
 
       </div>
 
-      {showEditProfile && <div className='
+      {location.pathname.includes('/edit-profile') && <div className='
       fixed 
       top-0 
       left-0 
@@ -212,7 +214,7 @@ const ProfileUpperSection = () => {
         w-11/12 
         max-h-[70vh]
         max-w-3xl'>
-          <EditProfileSection onClose={() => setShowEditProfile(false)} />
+          <Outlet />
         </div>
       </div>}
     </div>
