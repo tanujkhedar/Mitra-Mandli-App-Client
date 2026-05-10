@@ -45,11 +45,11 @@ const UploadPage = () => {
     if (responseMessage) {
       setSelectedFile(null);
       setCaption('');
-      fileInputRef.current.value = null;
+      //fileInputRef.current.value = null;
     } else if (error) {
       setSelectedFile(null);
       setCaption('');
-      fileInputRef.current.value = null;
+      //fileInputRef.current.value = null;
     }
   }, [responseMessage, error]);
 
