@@ -20,6 +20,8 @@ const UploadPage = () => {
     const file = event.target.files[0];
     if (file) {
       setSelectedFile(file);
+      console.log("file:- ", file);
+      
     }
   };
 
@@ -43,9 +45,13 @@ const UploadPage = () => {
     if (responseMessage) {
       setSelectedFile(null);
       setCaption('');
-      //fileInputRef.current.value = null;
+      fileInputRef.current.value = null;
+    } else if (error) {
+      setSelectedFile(null);
+      setCaption('');
+      fileInputRef.current.value = null;
     }
-  }, [responseMessage]);
+  }, [responseMessage, error]);
 
   return (
     <div className='
@@ -54,12 +60,22 @@ const UploadPage = () => {
     flex
     justify-center
     items-center'>
-      <div className='
-      w-full
-      max-w-100
-      min-h-100
-      lg:max-w-3xl
-      m-4
+      {pending ? (
+        <div className='
+        flex
+        justify-center
+        items-center'>
+          <h1 className='
+          font-bold
+          text-2xl'>Uploading....</h1>
+        </div>
+      ) : (
+        <div className='
+        w-full
+        max-w-100
+        min-h-100
+        lg:max-w-3xl
+        m-4
       flex
       flex-col
       lg:flex-row
@@ -79,12 +95,18 @@ const UploadPage = () => {
         gap-4
         lg:border-r
         border-gray-300'>
-          {selectedFile ? <img className='
+          {selectedFile && selectedFile.type.includes('image') ? <img className='
           w-full
           h-full
           object-contain'
           src={URL.createObjectURL(selectedFile)} 
           alt="Preview" 
+          /> : selectedFile?.type.includes('video') ? <video className='
+          w-full
+          h-full
+          object-contain'
+          src={URL.createObjectURL(selectedFile)} 
+          controls
           /> : <div className='
           flex
           flex-col
@@ -115,7 +137,7 @@ const UploadPage = () => {
             text-xl'>
               Upload Photo or Video
             </h1>
-          </div>}
+          </div>}         
         </div>
         <div className='
         flex
@@ -136,7 +158,9 @@ const UploadPage = () => {
             px-4
             py-1
             rounded-xl
-            bg-violet-600'
+            bg-violet-600
+            focus:bg-violet-700
+            hover:bg-violet-500'
             onClick={handleSharePost}>
               Share
             </button>
@@ -199,7 +223,7 @@ const UploadPage = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div>)}
     </div>
   )
 }

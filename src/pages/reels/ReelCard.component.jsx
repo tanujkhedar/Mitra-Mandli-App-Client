@@ -1,7 +1,23 @@
 import { Forward, Heart, MessageCircle } from 'lucide-react'
 import reel from '../../assets/reel.mp4'
+import { useEffect, useState } from 'react'
+import { api } from '../../app/Api.js'
 
-const ReelCard = ({username, avatar, video, likeCount, shareCount, commentCount}) => {
+const ReelCard = ({owner, video, likeCount, commentCount}) => {
+
+    const [ownerData, setOwnerData] = useState(null);
+
+    useEffect(() => {
+        (async () => {
+            try {
+                const response = await api.get(`/user/get/id/${owner}`);
+                setOwnerData(response.data.data);
+            } catch (error) {
+                console.error('Error fetching user profile:', error);
+            }
+        })();
+    }, []);
+
   return (
     <div className='
     flex 
@@ -33,8 +49,8 @@ const ReelCard = ({username, avatar, video, likeCount, shareCount, commentCount}
         items-end 
         w-full'>
             <div className='flex gap-4 items-center'>
-                <img className='w-10 aspect-square rounded-full' src={avatar} alt="avtar" />
-                <div className='text-white' >{username}</div>
+                <img className='w-10 aspect-square rounded-full' src={ownerData?.avatar?.url} alt="avtar" />
+                <div className='text-white' >{ownerData?.userName}</div>
                 <button className='text-white border-2 border-purple-600 rounded-xl py-1 px-2' >Follow</button>
             </div>
             <div className='flex flex-col gap-8'>
@@ -48,7 +64,6 @@ const ReelCard = ({username, avatar, video, likeCount, shareCount, commentCount}
                 </div>
                 <div className='flex flex-col items-center text-white'>
                     <Forward color='white'/>
-                    <span>{shareCount}</span>
                 </div>
             </div>
         </div>

@@ -86,7 +86,7 @@ const ProfileUpperSection = () => {
           </div>
 
           <p className='mt-4 text-center font-medium overflow-hidden h-5 w-2xs text-gray-700'>
-            Lorem ipsum dolor sit amet consectetur. Quisquam, quae. Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, voluptate.
+            {user.bio || "about me..."}
           </p>
 
           <div className='
@@ -99,7 +99,7 @@ const ProfileUpperSection = () => {
 
             <div className="p-2">
               <div className='text-2xl lg:text-4xl font-bold'>
-                9
+                {user.postCount}
               </div>
               <div className='text-gray-600 font-semibold'>
                 Posts

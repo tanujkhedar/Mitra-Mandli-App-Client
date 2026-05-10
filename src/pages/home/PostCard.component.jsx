@@ -1,6 +1,25 @@
 import { Bookmark, Forward, Heart, MessageCircle } from 'lucide-react'
+import { api } from '../../app/Api'
+import { useEffect, useState } from 'react'
 
-const PostCard = ({username, avatar, timeAgo, title, postImage, likeCount, commentCount, shareCount}) => {
+const PostCard = ({owner_id, timeAgo, title, postImage, likeCount, commentCount }) => {
+
+    const [userName, setUserName] = useState('');
+    const [avatar, setAvatar] = useState('');
+
+    useEffect(() => {
+        (async () =>  {
+            try {
+                const response = await api.get(`/user/get/id/${owner_id}`);
+                const { userName, avatar } = response.data.data;
+                setUserName(userName);
+                setAvatar(avatar);
+            } catch (error) {
+                console.error('Error fetching post owner data:', error);
+            }
+        })(); 
+    }, [owner_id]);
+
   return (
     <div className='
     mx-4 
@@ -14,11 +33,11 @@ const PostCard = ({username, avatar, timeAgo, title, postImage, likeCount, comme
             <img className='
             w-12 
             rounded-full' 
-            src={avatar} 
+            src={avatar.url} 
             alt="avtar" />
             <div className='mx-4'>
                 <div className='font-semibold'>
-                    {username}
+                    {userName}
                 </div>
                 <div className='text-gray-500'>
                     {timeAgo}
@@ -45,7 +64,6 @@ const PostCard = ({username, avatar, timeAgo, title, postImage, likeCount, comme
             </button>
             <button className='flex gap-4'>
                 <Forward color='gray'/>
-                <span>{shareCount}</span>
             </button>
             <button>
                 <Bookmark color='gray'/>
