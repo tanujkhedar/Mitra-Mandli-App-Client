@@ -9,7 +9,7 @@ const UploadPage = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [caption, setCaption] = useState('');
   const dispatch = useDispatch();
-  const { pending, error, responseMessage } = useSelector((state) => state.post);
+  const { loading, error, responseMessage } = useSelector((state) => state.post);
   const { user } = useSelector((state) => state.auth);
 
   const handleCaptionChange = (event) => {
@@ -60,7 +60,7 @@ const UploadPage = () => {
     flex
     justify-center
     items-center'>
-      {pending ? (
+      {loading ? (
         <div className='
         flex
         justify-center
