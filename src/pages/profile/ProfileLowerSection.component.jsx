@@ -3,21 +3,27 @@ import ProfilePostGridCard from './ProfilePostGridCard.component.jsx'
 import { Bookmark, Film, Grid3X3 } from 'lucide-react'
 import { useSelector, useDispatch } from 'react-redux';
 import { getCurrentUserAllPost } from '../../features/post/getCurrentUserAllPost.api.js';
+import ProfileReelGridCard from './ProfileReelGridCard.component.jsx';
+import ProfileSavedGridCard from './ProfileSavedGridCard.component.jsx';
+import { api } from '../../app/Api.js';
+import { getCurrentUserSevedPost } from '../../features/post/getCurrentUserSevedPost.api.js';
 
 const ProfileLowerSection = () => {
 
-  const { posts } = useSelector((state) => state.post);
+  const { authPost } = useSelector((state) => state.post);
   const dispatch = useDispatch();
-  const [post, setPost] = useState([]);
+
+  const [postGridShow, setPostGridShow] = useState(true);
+  const [reelGridShow, setReelGridShow] = useState(false);
+  const [savedGridShow, setSavedGridShow] = useState(false);
 
   useEffect(() => {
     dispatch(getCurrentUserAllPost());
+    dispatch(getCurrentUserSevedPost());
   }, []);
 
-  useEffect(() => {
-    setPost(posts);
-  }, [posts]);
-
+  //console.log("ttttt",saved.map((item, i)=> item.content[0]._id));
+  
 
   return (
 
@@ -36,15 +42,39 @@ const ProfileLowerSection = () => {
       border-gray-300
       '>
 
-        <button>
+        <button className='
+        hover:text-violet-400
+        focus:text-violet-700
+        cursor-pointer'
+        onClick={()=>{
+          setPostGridShow(true)
+          setReelGridShow(false)
+          setSavedGridShow(false)
+        }}>
           <Grid3X3 />
         </button>
 
-        <button>
+        <button className='
+        hover:text-violet-400
+        focus:text-violet-700
+        cursor-pointer'
+        onClick={()=>{
+          setPostGridShow(false)
+          setReelGridShow(true)
+          setSavedGridShow(false)
+        }}>
           <Film />
         </button>
 
-        <button>
+        <button className='
+        hover:text-violet-400
+        focus:text-violet-700
+        cursor-pointer'
+        onClick={()=>{
+          setPostGridShow(false)
+          setReelGridShow(false)
+          setSavedGridShow(true)
+        }}>
           <Bookmark />
         </button>
 
@@ -53,14 +83,27 @@ const ProfileLowerSection = () => {
       {/* Grid */}
       <div className='grid grid-cols-3 gap-1'>
 
-        {
-          post?.map((post, i) => (
+        {postGridShow ?
+          authPost.post?.map((post, i) => (
             post.resourceType === 'image' ?
             <ProfilePostGridCard
               key={i}
-              postImage={post.file.url}
+              post={post}
             /> : null
-          ))
+          )) : reelGridShow ?
+          authPost.post?.map((reel, i) => (
+            reel.resourceType === 'video' ?
+            <ProfileReelGridCard
+              key={i}
+              reel={reel}
+            /> : null
+          )) : savedGridShow ?
+          authPost.savedPost?.map((item, i) => (
+            <ProfileSavedGridCard
+              key={i}
+              media={item}
+            />
+          )) : null
         }
 
       </div>

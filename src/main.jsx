@@ -6,11 +6,11 @@ import './styles/index.css'
 import './styles/scrollbar.css'
 import { router } from './app/Routes.jsx'
 import { store } from './app/Store.js'
+import { Toaster } from 'react-hot-toast'
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
     <Provider store={store}>
+      <Toaster position='top-center'/>
       <RouterProvider router={router}/>
     </Provider>
-  </StrictMode>,
 )

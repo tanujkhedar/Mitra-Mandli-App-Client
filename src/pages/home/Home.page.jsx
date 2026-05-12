@@ -3,22 +3,18 @@ import TopNavbar from "./TopNavbar.components.jsx"
 import StoryHighlightCard from "../../components/StoryHighlightCard.component.jsx";
 import { use, useEffect, useState } from "react";
 import { api } from "../../app/Api.js";
+import { useDispatch, useSelector } from "react-redux";
+import { getFeedPost } from "../../features/post/getFeedPost.api.js";
 
 
 const Home = () => {
 
-  const [posts, setPosts] = useState([]);
+  const {feedPost} = useSelector((state) => state.post);
+  const dispatch = useDispatch();
+  
 
   useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const response = await api.get('/post/feedposts');
-      setPosts(response.data.data);
-      } catch (error) {
-        console.error('Error fetching posts:', error);
-      }
-    };
-    fetchPosts();
+    dispatch(getFeedPost());
   }, []);
 
   
@@ -81,6 +77,7 @@ const users = [
   { username: "Meera Joshi", avatar: "https://i.pravatar.cc/150?img=30" }
 ];
 
+
   return (
     <div className="lg:h-dvh">
       <div className="
@@ -124,10 +121,12 @@ const users = [
         no-scrollbar 
         lg:overflow-y-auto">
           {
-            posts.map((item, i) => 
+            feedPost?.map((item, i) => 
               <div key={i} className="shrink-0 my-4 w-full"> 
                 <PostCard 
-                owner_id={item.owner}
+                post_id={item._id}
+                userName={item.ownerInfo.userName}
+                avatar={item.ownerInfo.avatar}
                 timeAgo={timeAgo(item.updatedAt)} 
                 title={item.title} 
                 postImage={item.file.url} 

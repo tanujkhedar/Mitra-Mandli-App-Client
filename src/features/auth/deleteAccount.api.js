@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import { api } from "../../app/Api"
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
@@ -8,9 +9,12 @@ export const deleteAccount = createAsyncThunk(
         const response = await api.delete("/user/delete", {
             data : data
         });
+
+        toast.success(response.data?.message || "user deleted Successful")
         return response.data;
     } catch (error) {
-        return thunkApi.rejectWithValue(error.response.data);
+        toast.error(error.response?.data?.message);
+        return thunkApi.rejectWithValue(error.response?.data);
     }
   }
 );

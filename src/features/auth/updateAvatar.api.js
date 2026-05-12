@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { api } from "../../app/Api";
+import toast from "react-hot-toast";
 
 
 export const updateAvtar = createAsyncThunk(
@@ -7,10 +8,11 @@ export const updateAvtar = createAsyncThunk(
     async (data, thunkApi) => {
         try {
             const response = await api.patch('/user/updateavatar', data);
-
+            toast.success(response.data?.message || "avatar updated Successfully");
             return response.data;
         } catch (error) {
-            return thunkApi.rejectWithValue(error.response?.data || 'Update avatar failed')
+            toast.error(error.response?.data?.message);
+            return thunkApi.rejectWithValue(error.response?.data);
         }
     }
 );

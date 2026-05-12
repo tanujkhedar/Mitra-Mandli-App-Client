@@ -1,22 +1,63 @@
-import { Forward, Heart, MessageCircle } from 'lucide-react'
+import { Forward, Heart, MessageCircle, Volume2, VolumeX  } from 'lucide-react'
 import reel from '../../assets/reel.mp4'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { api } from '../../app/Api.js'
 
-const ReelCard = ({owner, video, likeCount, commentCount}) => {
+const ReelCard = ({avatar, userName, video, likeCount, commentCount, index, muted, setMuted}) => {
 
-    const [ownerData, setOwnerData] = useState(null);
+    const videoRefs = useRef([]);
+    
 
-    useEffect(() => {
-        (async () => {
-            try {
-                const response = await api.get(`/user/get/id/${owner}`);
-                setOwnerData(response.data.data);
-            } catch (error) {
-                console.error('Error fetching user profile:', error);
-            }
-        })();
-    }, []);
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const video = entry.target;
+
+          if (entry.isIntersecting) {
+            video.muted = muted;
+            video.play().catch(() => {});
+          } else {
+            video.pause();
+          }
+        });
+      },
+      {
+        threshold: 0.7,
+      }
+    );
+
+    videoRefs.current.forEach((video) => {
+      if (video) observer.observe(video);
+    });
+
+    return () => {
+      videoRefs.current.forEach((video) => {
+        if (video) observer.unobserve(video);
+      });
+    };
+  }, [muted]);
+
+  const handlePlayPause = (video) => {
+    if (!video) return;
+
+    if (video.paused) {
+      video.play();
+    } else {
+      video.pause();
+    }
+  };
+
+  const handleMuteUnmute = () => {
+    const video = videoRefs.current[index];
+
+    if (!video) return;
+
+    video.muted = !video.muted;
+
+    setMuted(video.muted);
+  };
+
 
   return (
     <div className='
@@ -37,8 +78,28 @@ const ReelCard = ({owner, video, likeCount, commentCount}) => {
         h-full 
         z-0 
         rounded' 
+        ref={(el) => (videoRefs.current[index] = el)}
         src={video} 
-        controls/>
+        onClick={() =>
+              handlePlayPause(videoRefs.current[index])
+            }
+        loop
+        playsInline
+        muted/>
+        <button
+        onClick={handleMuteUnmute}
+        className="
+        absolute
+        top-5
+        right-5
+        z-20
+        bg-black/40
+        p-2
+        rounded-full
+        text-white"
+      >
+        {muted ? <VolumeX /> : <Volume2 />}
+      </button>
         <div className='
         z-10 
         absolute 
@@ -49,8 +110,8 @@ const ReelCard = ({owner, video, likeCount, commentCount}) => {
         items-end 
         w-full'>
             <div className='flex gap-4 items-center'>
-                <img className='w-10 aspect-square rounded-full' src={ownerData?.avatar?.url} alt="avtar" />
-                <div className='text-white' >{ownerData?.userName}</div>
+                <img className='w-10 aspect-square rounded-full' src={avatar} alt="avtar" />
+                <div className='text-white' >{userName}</div>
                 <button className='text-white border-2 border-purple-600 rounded-xl py-1 px-2' >Follow</button>
             </div>
             <div className='flex flex-col gap-8'>

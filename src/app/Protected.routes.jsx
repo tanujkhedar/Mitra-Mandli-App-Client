@@ -3,9 +3,9 @@ import { Navigate } from "react-router-dom";
 import LoadingPage from "../pages/loading/Loading.page.jsx";
 
 const ProtectedRoutes = ({children}) => {
-  const {isAuth, pending} = useSelector((state) => state.auth);
+  const {isAuth, getPending} = useSelector((state) => state.auth);
 
-  if(pending) {
+  if(getPending && !isAuth) {
     
     return <LoadingPage/>
   }

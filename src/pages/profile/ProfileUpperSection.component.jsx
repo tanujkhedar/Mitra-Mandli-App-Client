@@ -85,7 +85,7 @@ const ProfileUpperSection = () => {
             </p>
           </div>
 
-          <p className='mt-4 text-center font-medium overflow-hidden h-5 w-2xs text-gray-700'>
+          <p className='mt-4 text-center font-medium truncate overflow-hidden h-5 w-2xs text-gray-700'>
             {user.bio || "about me..."}
           </p>
 

@@ -2,6 +2,7 @@ import {Image, Video, X, Upload} from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { createPost } from '../../features/post/createPost.api.js'
+import { ClipLoader } from 'react-spinners'
 
 const UploadPage = () => { 
 
@@ -9,7 +10,7 @@ const UploadPage = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [caption, setCaption] = useState('');
   const dispatch = useDispatch();
-  const { loading, error, responseMessage } = useSelector((state) => state.post);
+  const { loading } = useSelector((state) => state.post);
   const { user } = useSelector((state) => state.auth);
 
   const handleCaptionChange = (event) => {
@@ -31,7 +32,7 @@ const UploadPage = () => {
 
   const handleRemoveFile = () => {
     setSelectedFile(null);
-    fileInputRef.current.value = null;
+    //fileInputRef.current.value = null;
   }
 
   const handleSharePost = () => {
@@ -39,19 +40,9 @@ const UploadPage = () => {
     formData.append('file', selectedFile);
     formData.append('title', caption);
     dispatch(createPost(formData));
+    setSelectedFile(null);
+    setCaption('');
   }
-
-  useEffect(() => {
-    if (responseMessage) {
-      setSelectedFile(null);
-      setCaption('');
-      //fileInputRef.current.value = null;
-    } else if (error) {
-      setSelectedFile(null);
-      setCaption('');
-      //fileInputRef.current.value = null;
-    }
-  }, [responseMessage, error]);
 
   return (
     <div className='
@@ -68,6 +59,7 @@ const UploadPage = () => {
           <h1 className='
           font-bold
           text-2xl'>Uploading....</h1>
+          <ClipLoader/>
         </div>
       ) : (
         <div className='
@@ -92,6 +84,7 @@ const UploadPage = () => {
         flex-col
         justify-center
         items-center
+        relative
         gap-4
         lg:border-r
         border-gray-300'>
@@ -101,7 +94,8 @@ const UploadPage = () => {
           object-contain'
           src={URL.createObjectURL(selectedFile)} 
           alt="Preview" 
-          /> : selectedFile?.type.includes('video') ? <video className='
+          /> 
+          : selectedFile?.type.includes('video') ? <video className='
           w-full
           h-full
           object-contain'
@@ -137,7 +131,18 @@ const UploadPage = () => {
             text-xl'>
               Upload Photo or Video
             </h1>
-          </div>}         
+          </div>}
+          {selectedFile && <button className='
+          absolute
+          top-4
+          right-4
+          text-gray-500
+          cursor-pointer
+          hover:text-violet-500
+          focus:text-violet-700'
+          onClick={handleRemoveFile}>
+            <X size='30'/>
+          </button>}         
         </div>
         <div className='
         flex
@@ -158,6 +163,7 @@ const UploadPage = () => {
             px-4
             py-1
             rounded-xl
+            cursor-pointer
             bg-violet-600
             focus:bg-violet-700
             hover:bg-violet-500'
@@ -194,14 +200,13 @@ const UploadPage = () => {
             p-4
             border
             border-gray-300
-            rounded-2xl'
+            rounded-2xl
+            resize-none'
             placeholder='Write a caption' 
             name="" 
             id=""
             value={caption}
             onChange={handleCaptionChange}></textarea>
-            <p className='text-red-500'>{error}</p>
-            <p className='text-green-500'>{responseMessage}</p>
           </div>
           <div className='
           p-4

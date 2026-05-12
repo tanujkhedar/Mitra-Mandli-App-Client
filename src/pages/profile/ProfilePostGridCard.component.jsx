@@ -1,11 +1,11 @@
 
 
-const ProfilePostGridCard = ({ postImage }) => {
+const ProfilePostGridCard = ({ post }) => {
   return (
     <div className='aspect-square overflow-hidden'>
       <img
         className='w-full h-full object-cover'
-        src={postImage}
+        src={post?.file?.url}
         alt="post"
       />
     </div>

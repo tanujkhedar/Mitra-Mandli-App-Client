@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { loginUser } from '../../features/auth/login.api.js'
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { ClipLoader } from 'react-spinners';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -85,24 +86,6 @@ const Login = () => {
           onChange={(e) => {setPassword(e.target.value)}}
         />
 
-        {auth.error && (
-          <div className='
-          text-center 
-          text-sm 
-          text-red-800'>
-            {auth.error}
-          </div>
-        )}
-
-        {auth.responseMessage && (
-          <div className="
-          text-center 
-          text-sm 
-          text-green-800">
-            {auth.responseMessage}
-          </div>
-        )}
-
         <div className="
         text-right 
         text-sm 
@@ -124,11 +107,12 @@ const Login = () => {
         transition-colors 
         duration-300 
         text-white
+        cursor-pointer
         hover:bg-linear-to-r 
         hover:from-purple-500 
         hover:to-violet-400" 
         onClick={loginHeandler}>
-          {auth.pending ? "Loading..." : "Login"}
+          {auth.pending ? <ClipLoader/> : "Login"}
         </button>
 
         <div className="
@@ -141,6 +125,7 @@ const Login = () => {
         focus:bg-gray-400
         transition-colors 
         duration-300 
+        cursor-pointer
         text-gray-700
         hover:bg-gray-400">
           Continue with Google

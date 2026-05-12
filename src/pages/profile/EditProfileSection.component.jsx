@@ -20,7 +20,7 @@ const EditProfilePage = () => {
   const [isPrivateAccount, setIsPrivateAccount] = useState(false);
   const fileInputRef = useRef(null);
   const dispatch = useDispatch();
-  const {user, pending, error, responseMessage} = useSelector((state) => state.auth);
+  const {user, pending} = useSelector((state) => state.auth);
   const navigate = useNavigate();
 
   const handleUpdateEmail = (e) => {
@@ -335,26 +335,6 @@ const EditProfilePage = () => {
         type="button">
           Update
         </button>
-
-          {responseMessage && <p className="
-          text-green-500
-          fixed
-          bottom-4
-          bg-green-100
-          p-2
-          rounded-lg
-          shadow-lg
-          ">{responseMessage}</p>}
-
-        {error && <p className="
-        text-red-500
-        fixed
-        bottom-4
-        bg-red-100
-        p-2
-        rounded-lg
-        shadow-lg
-        ">{error}</p>}
       </div>
     </div>
   )

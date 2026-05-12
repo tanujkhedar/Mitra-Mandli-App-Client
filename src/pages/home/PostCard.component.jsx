@@ -1,24 +1,69 @@
 import { Bookmark, Forward, Heart, MessageCircle } from 'lucide-react'
 import { api } from '../../app/Api'
 import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux';
 
-const PostCard = ({owner_id, timeAgo, title, postImage, likeCount, commentCount }) => {
+const PostCard = ({ timeAgo, title, postImage, likeCount, commentCount, post_id, avatar, userName }) => {
 
-    const [userName, setUserName] = useState('');
-    const [avatar, setAvatar] = useState('');
+    const [isSaved, setIsSaved] = useState(false);
+    const {user} = useSelector((state)=>state.auth);
+    const [isLiked, setIsLiked] = useState(false);
+
+    const handleSavePost = async () => {
+        try {
+            const response = await api.patch('/collection/update', {post_id});
+            console.log("updateCollection:- ", response.data.data);
+            
+            response.data.data ? setIsSaved(true) : setIsSaved(false)
+        } catch (error) {
+            console.log("axios collection api error:- ", error.response.data.message);
+            
+        }
+    }
+
+    const handleLikePost = async () => {
+        try {
+            const response = await api.patch('/like/update', {post_id});
+            console.log("updateCollection:- ", response.data.data);
+            
+            response.data.data ? setIsLiked(true) : setIsLiked(false)
+        } catch (error) {
+            console.log("axios like api error:- ", error.response.data.message);
+            
+        }
+    }
 
     useEffect(() => {
         (async () =>  {
             try {
-                const response = await api.get(`/user/get/id/${owner_id}`);
-                const { userName, avatar } = response.data.data;
-                setUserName(userName);
-                setAvatar(avatar);
+                const response = await api.get(`/collection/ispostsave/${post_id}`);
+                console.log("getIsSaved:- ", response.data.data);
+                
+                if (response.data?.data){
+                    setIsSaved(true);
+                } else {
+                    setIsSaved(false)
+                }
             } catch (error) {
-                console.error('Error fetching post owner data:', error);
+                console.error('Error fetching post save data:', error);
             }
         })(); 
-    }, [owner_id]);
+
+        (async () =>  {
+            try {
+                const response = await api.get(`/like/ispostliked/${post_id}`);
+                console.log("getIsLiked:- ", response.data.data);
+                
+                if (response.data?.data){
+                    setIsLiked(true);
+                } else {
+                    setIsLiked(false)
+                }
+            } catch (error) {
+                console.error('Error fetching post like data:', error);
+            }
+        })(); 
+    }, [post_id]);
 
   return (
     <div className='
@@ -33,7 +78,7 @@ const PostCard = ({owner_id, timeAgo, title, postImage, likeCount, commentCount 
             <img className='
             w-12 
             rounded-full' 
-            src={avatar.url} 
+            src={avatar?.url} 
             alt="avtar" />
             <div className='mx-4'>
                 <div className='font-semibold'>
@@ -54,8 +99,16 @@ const PostCard = ({owner_id, timeAgo, title, postImage, likeCount, commentCount 
         src={postImage} 
         alt="post img"  />
         <div className='flex justify-around mt-4'>
-            <button className='flex gap-4'>
-                <Heart color='gray'/>
+            <button className='
+            flex 
+            gap-4
+            cursor-pointer
+            hover:text-violet-400
+            focus:text-violet-700'
+            onClick={handleLikePost}>
+                <Heart 
+                color={isLiked ? "violet" : "gray"}
+                fill={isLiked ? "violet" : "white"}/>
                 <span>{likeCount}</span>
             </button>
             <button className='flex gap-4'>
@@ -65,8 +118,14 @@ const PostCard = ({owner_id, timeAgo, title, postImage, likeCount, commentCount 
             <button className='flex gap-4'>
                 <Forward color='gray'/>
             </button>
-            <button>
-                <Bookmark color='gray'/>
+            <button className='
+            cursor-pointer
+            hover:text-violet-400
+            focus:text-violet-700' 
+            onClick={handleSavePost}>
+                <Bookmark 
+                fill={isSaved ? "violet" : "white"} 
+                color={isSaved ? "violet" : "gray"}/>
             </button>
         </div>
         <div></div>

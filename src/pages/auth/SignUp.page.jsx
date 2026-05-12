@@ -3,6 +3,7 @@ import app_logo from '../../assets/app_logo.png'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { registerUser } from '../../features/auth/register.api.js'
+import { ClipLoader } from 'react-spinners'
 
 const SignUp = () => {
 
@@ -116,23 +117,6 @@ const SignUp = () => {
         focus:outline-none 
         focus:border-violet-500" 
         onChange={(e) =>{setPassword(e.target.value)}}/>
-        {auth.error && (
-          <div className='
-          text-center 
-          text-sm 
-          text-red-800'>
-            {auth.error}
-          </div>
-        )}
-
-        {auth.responseMessage && (
-          <div className='
-          text-center 
-          text-sm 
-          text-green-800'>
-            {auth.responseMessage}
-          </div>
-        )}
 
         <button className="
         w-full 
@@ -148,11 +132,12 @@ const SignUp = () => {
         transition-colors 
         duration-300 
         text-white
+        cursor-pointer
         hover:bg-linear-to-r 
         hover:from-purple-500 
         hover:to-violet-400"
         onClick={submitHandler}>
-          {auth.pending ? "Loading..." : "Sign Up"}
+          {auth.pending ? <ClipLoader/> : "Sign Up"}
         </button>
 
         <div className="
@@ -168,6 +153,7 @@ const SignUp = () => {
         hover:bg-gray-400
         transition-colors 
         duration-300 
+        cursor-pointer
         text-gray-700">
           Continue with Google
         </button>
