@@ -7,7 +7,7 @@ export const getUser = createAsyncThunk(
     async (_,thunkApi) => {
         try {
             const response = await api.get('/user/get');
-            toast.success(response.data?.message || "user fetch Successfully");
+           // toast.success(response.data?.message || "user fetch Successfully");
             return response.data;
         } catch (error) {
             toast.error(error.response?.data?.message);

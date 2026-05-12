@@ -1,8 +1,12 @@
 import { Home, MessageCircleMore, Upload, User, Video } from 'lucide-react'
 import { NavLink } from 'react-router-dom'
 import app_logo from '../assets/app_logo.png'
+import { useSelector } from 'react-redux'
 
 const LeftNavbar = () => {
+
+  const {user} = useSelector((state)=>state.auth);
+
   return (
     <div className=' 
     h-dvh 
@@ -56,7 +60,7 @@ const LeftNavbar = () => {
         )}
       </NavLink>
 
-      <NavLink to='/profile' className={({isActive}) =>
+      <NavLink to={`/profile/${user?.userName}`} className={({isActive}) =>
         `p-4 rounded-xl ${isActive ? 'bg-violet-100' : ''}`
       }>
         {({isActive}) => (

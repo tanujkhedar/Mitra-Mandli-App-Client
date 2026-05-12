@@ -1,7 +1,10 @@
 import { Home, MessageCircleMore, Upload, User, Video } from 'lucide-react'
+import { useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 
 const BottomNavbar = () => {
+
+  const {user} = useSelector((state)=>state.auth);
   return (
     <div className='
     flex 
@@ -57,7 +60,7 @@ const BottomNavbar = () => {
       </NavLink>
 
       <NavLink 
-        to='/profile' 
+        to={`/profile/${user?.userName}`} 
         className={({isActive}) =>
           `p-3 rounded-full ${isActive ? 'bg-violet-200' : ''}`
         }

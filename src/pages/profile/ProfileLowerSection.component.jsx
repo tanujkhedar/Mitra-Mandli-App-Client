@@ -7,20 +7,32 @@ import ProfileReelGridCard from './ProfileReelGridCard.component.jsx';
 import ProfileSavedGridCard from './ProfileSavedGridCard.component.jsx';
 import { api } from '../../app/Api.js';
 import { getCurrentUserSevedPost } from '../../features/post/getCurrentUserSevedPost.api.js';
+import { getSearchedUserAllPost } from '../../features/post/getSearchedUserAllPost.api.js';
+import { useParams } from 'react-router-dom';
 
 const ProfileLowerSection = () => {
 
-  const { authPost } = useSelector((state) => state.post);
+  const { authPost, searchedUserPost } = useSelector((state) => state.post);
+  const {user} = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const { userName } = useParams();
 
   const [postGridShow, setPostGridShow] = useState(true);
   const [reelGridShow, setReelGridShow] = useState(false);
   const [savedGridShow, setSavedGridShow] = useState(false);
+  const [isAuthUser, setIsAuthUser] = useState(false);
 
   useEffect(() => {
     dispatch(getCurrentUserAllPost());
     dispatch(getCurrentUserSevedPost());
-  }, []);
+
+    if(userName != user.userName) {
+      setIsAuthUser(false);
+      dispatch(getSearchedUserAllPost(userName));
+    }else {
+      setIsAuthUser(true)
+    }
+  }, [userName]);
 
   //console.log("ttttt",saved.map((item, i)=> item.content[0]._id));
   
@@ -66,7 +78,7 @@ const ProfileLowerSection = () => {
           <Film />
         </button>
 
-        <button className='
+        {isAuthUser && <button className='
         hover:text-violet-400
         focus:text-violet-700
         cursor-pointer'
@@ -76,7 +88,7 @@ const ProfileLowerSection = () => {
           setSavedGridShow(true)
         }}>
           <Bookmark />
-        </button>
+        </button>}
 
       </div>
 
@@ -84,20 +96,32 @@ const ProfileLowerSection = () => {
       <div className='grid grid-cols-3 gap-1'>
 
         {postGridShow ?
-          authPost.post?.map((post, i) => (
+          (isAuthUser ? authPost.post?.map((post, i) => (
             post.resourceType === 'image' ?
             <ProfilePostGridCard
               key={i}
               post={post}
             /> : null
-          )) : reelGridShow ?
-          authPost.post?.map((reel, i) => (
+          )) : searchedUserPost && searchedUserPost?.map((post, i) => (
+            post.resourceType === 'image' ?
+            <ProfilePostGridCard
+              key={i}
+              post={post}
+            /> : null
+          ))) : reelGridShow ?
+          (isAuthUser ? authPost.post?.map((reel, i) => (
             reel.resourceType === 'video' ?
             <ProfileReelGridCard
               key={i}
               reel={reel}
             /> : null
-          )) : savedGridShow ?
+          )) : searchedUserPost && searchedUserPost?.map((reel, i) => (
+            reel.resourceType === 'video' ?
+            <ProfileReelGridCard
+              key={i}
+              reel={reel}
+            /> : null
+          ))) : savedGridShow ?
           authPost.savedPost?.map((item, i) => (
             <ProfileSavedGridCard
               key={i}

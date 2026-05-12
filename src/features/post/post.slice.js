@@ -16,7 +16,7 @@ export const postSlice = createSlice({
         },
         feedPost: [],
         feedReels: [],
-        userPost: [],
+        searchedUserPost: null,
         loading: false,
     },
     reducers: {},
@@ -38,7 +38,7 @@ export const postSlice = createSlice({
             })
             .addCase(getCurrentUserAllPost.fulfilled, (state, action) => {
                 state.loading = false;
-                toast.success(action.payload?.message || 'Posts retrieved successfully');
+               // toast.success(action.payload?.message || 'Posts retrieved successfully');
                 state.authPost.post = action.payload.data;
             })
             .addCase(getCurrentUserAllPost.rejected, (state, action) => {
@@ -50,7 +50,7 @@ export const postSlice = createSlice({
             })
             .addCase(getCurrentUserSevedPost.fulfilled, (state, action) => {
                 state.loading = false;
-                toast.success(action.payload?.message || 'Posts retrieved successfully');
+              //  toast.success(action.payload?.message || 'Posts retrieved successfully');
                 state.authPost.savedPost = action.payload.data;
             })
             .addCase(getCurrentUserSevedPost.rejected, (state, action) => {
@@ -59,14 +59,16 @@ export const postSlice = createSlice({
             })
             .addCase(getSearchedUserAllPost.pending, (state) => {
                 state.loading = true;
+                state.searchedUserPost = null
             })
             .addCase(getSearchedUserAllPost.fulfilled, (state, action) => {
                 state.loading = false;
-                toast.success(action.payload?.message || 'Posts retrieved successfully');
-                state.userPost = action.payload.data;
+              //  toast.success(action.payload?.message || 'Posts retrieved successfully');
+                state.searchedUserPost = action.payload.data;
             })
             .addCase(getSearchedUserAllPost.rejected, (state, action) => {
                 state.loading = false;
+                state.searchedUserPost = null
                 toast.error(action.payload?.message || 'Failed to get user posts');
             })
             .addCase(getFeedPost.pending, (state) => {
@@ -74,7 +76,7 @@ export const postSlice = createSlice({
             })
             .addCase(getFeedPost.fulfilled, (state, action) => {
                 state.loading = false;
-                toast.success(action.payload?.message || 'Posts retrieved successfully');
+               // toast.success(action.payload?.message || 'Posts retrieved successfully');
                 state.feedPost = action.payload.data;
             })
             .addCase(getFeedPost.rejected, (state, action) => {
@@ -86,7 +88,7 @@ export const postSlice = createSlice({
             })
             .addCase(getFeedReels.fulfilled, (state, action) => {
                 state.loading = false;
-                toast.success(action.payload?.message || 'Posts retrieved successfully');
+                //toast.success(action.payload?.message || 'Posts retrieved successfully');
                 state.feedReels = action.payload.data;
             })
             .addCase(getFeedReels.rejected, (state, action) => {

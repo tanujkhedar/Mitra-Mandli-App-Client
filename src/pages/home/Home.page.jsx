@@ -12,6 +12,8 @@ const Home = () => {
   const {feedPost} = useSelector((state) => state.post);
   const dispatch = useDispatch();
   
+  console.log("feedPost:- ", feedPost);
+  
 
   useEffect(() => {
     dispatch(getFeedPost());
@@ -125,6 +127,7 @@ const users = [
               <div key={i} className="shrink-0 my-4 w-full"> 
                 <PostCard 
                 post_id={item._id}
+                user_id={item.ownerInfo._id}
                 userName={item.ownerInfo.userName}
                 avatar={item.ownerInfo.avatar}
                 timeAgo={timeAgo(item.updatedAt)} 

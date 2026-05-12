@@ -1,14 +1,18 @@
-import { useSelector } from "react-redux"
-import { useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { useEffect, useState } from "react"
 import EditProfileSection from "./EditProfileSection.component.jsx"
-import {Link, Outlet, useLocation } from "react-router-dom";
+import {Link, Outlet, useLocation, useParams } from "react-router-dom";
 import profile from '../../assets/profile.jpg'
+import { getSearchedUser } from "../../features/users/getSearchedUser.api.js";
 
 
 const ProfileUpperSection = () => {
 
   const {user} = useSelector((state) => state.auth);
   const location = useLocation();
+  const {userName} = useParams();
+  const [searchedUser, setSearchedUser] = useState('');
+  const [isAuthUser, setIsAuthUser] = useState(false);
 
   const handleShareProfile = () => {
     // Implement share profile functionality here
@@ -21,6 +25,27 @@ const ProfileUpperSection = () => {
   const handleFollowing = () => {
     //navigate('/profile/followlist/following');
   }
+
+  const handleFollowBtn = () => {}
+
+  const handleMessageBtn = () => {}
+
+  useEffect(() => {
+    (async () => {
+      if(userName != user.userName) {
+        setIsAuthUser(false);
+        try {
+          const response = await getSearchedUser(userName);
+          setSearchedUser(response?.data);
+        } catch (error) {
+          //
+        }
+        // console.log("searched User:- ", response?.data)
+      } else {
+        setIsAuthUser(true);
+      }
+    })();
+  }, [userName]);
 
 
   return (
@@ -69,7 +94,7 @@ const ProfileUpperSection = () => {
             border-white
             lg:shadow-2xl
             '
-            src={user.avatar?.url || profile}
+            src={isAuthUser ? (user.avatar?.url || profile) : (searchedUser?.avatar?.url || profile)}
             alt="avatar"
           />
         </div>
@@ -78,16 +103,16 @@ const ProfileUpperSection = () => {
 
           <div className='text-center mt-4'>
             <h1 className='text-2xl lg:text-4xl font-bold'>
-              {user.fullName}
+              {isAuthUser ? user.fullName : searchedUser?.fullName}
             </h1>
 
             <p className='text-gray-500 text'>
-              {`@${user.userName}`}
+              {`@${isAuthUser ? user.userName : searchedUser?.userName}`}
             </p>
           </div>
 
           <p className='mt-4 text-center font-medium truncate overflow-hidden h-5 w-2xs text-gray-700'>
-            {user?.bio || "about me..."}
+            {!isAuthUser ? (searchedUser?.bio || "about me..." ) : (user?.bio || "about me...")}
           </p>
 
           <div className='
@@ -100,7 +125,7 @@ const ProfileUpperSection = () => {
 
             <div className="p-2">
               <div className='text-2xl lg:text-4xl font-bold'>
-                {user.postCount}
+                {!isAuthUser ? searchedUser?.postCount : user.postCount}
               </div>
               <div className='text-gray-600 font-semibold'>
                 Posts
@@ -118,7 +143,7 @@ const ProfileUpperSection = () => {
             type="button"
             onClick={handleFollowers}>
               <div className='text-2xl lg:text-4xl font-bold'>
-                {user.followerCount}
+                {!isAuthUser ? searchedUser?.followerCount : user.followerCount}
               </div>
               <div className='text-gray-600 font-semibold'>
                 Followers
@@ -136,7 +161,7 @@ const ProfileUpperSection = () => {
             type="button"
             onClick={handleFollowing}>
               <div className='text-2xl lg:text-4xl font-bold'>
-                {user.followingCount}
+                {!isAuthUser ? searchedUser?.followingCount : user.followingCount}
               </div>
               <div className='text-gray-600 font-semibold'>
                 Following
@@ -152,7 +177,7 @@ const ProfileUpperSection = () => {
           justify-around
           '>
 
-            <Link className='
+            {isAuthUser ? <Link className='
             h-14
             w-45
             flex
@@ -169,9 +194,25 @@ const ProfileUpperSection = () => {
             '
             to="/profile/edit-profile">
               Edit Profile
-            </Link>
+            </Link> : <button className='
+            h-14
+            w-45
+            px-10
+            rounded-xl
+            bg-violet-600
+            text-white
+            font-semibold
+            shadow-lg
+            hover:bg-violet-700
+            hover:cursor-pointer
+            focus:rounded-4xl
+            '
+            type="button"
+            onClick={handleFollowBtn}>
+              Follow
+            </button>}
 
-            <button className='
+            {isAuthUser ? <button className='
             h-14
             w-45
             px-10
@@ -187,7 +228,23 @@ const ProfileUpperSection = () => {
             type="button"
             onClick={handleShareProfile}>
               Share Profile
-            </button>
+            </button> : <button className='
+            h-14
+            w-45
+            px-10
+            rounded-xl
+            bg-violet-600
+            text-white
+            font-semibold
+            shadow-lg
+            hover:bg-violet-700
+            hover:cursor-pointer
+            focus:rounded-4xl
+            '
+            type="button"
+            onClick={handleMessageBtn}>
+              Message
+            </button>}
 
           </div>
 

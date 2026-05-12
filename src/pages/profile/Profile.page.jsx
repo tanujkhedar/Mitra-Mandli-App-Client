@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ProfileUpperSection from './ProfileUpperSection.component.jsx'
 import ProfileLowerSection from './ProfileLowerSection.component.jsx'
 import StoryHighlightCard from '../../components/StoryHighlightCard.component.jsx'
+import { getSearchedUser } from '../../features/users/getSearchedUser.api.js'
+import { useParams } from 'react-router-dom'
 
 const Profile = () => {
 
@@ -27,10 +29,23 @@ const Profile = () => {
   { username: "Kavya Nair", avatar: "https://i.pravatar.cc/150?img=28" },
   { username: "Riya Choudhary", avatar: "https://i.pravatar.cc/150?img=29" },
   { username: "Meera Joshi", avatar: "https://i.pravatar.cc/150?img=30" }
-]; 
+];
+
+  const [userExist, setUserExist] = useState(true);
+  const {userName} = useParams();
+
+  useEffect(() => {
+    ( async () => {
+      const response = await getSearchedUser(userName);
+      if (response?.message == "this userName does not exist") {
+        setUserExist(false);
+      }
+    })();
+  }, []);
 
   return (
-    <div className='w-full min-h-screen'>
+    <>
+    {userExist ? <div className='w-full min-h-screen'>
 
       <ProfileUpperSection />
 
@@ -55,7 +70,18 @@ const Profile = () => {
 
       <ProfileLowerSection />
 
-    </div>
+    </div> : <div className='
+    h-full
+    w-full
+    flex
+    justify-center
+    items-center
+    text-4xl
+    md:text-6xl
+    text-violet-600'>
+        <h1>{`${userName} is not Exist`}</h1>
+      </div>}
+    </>
   )
 }
 

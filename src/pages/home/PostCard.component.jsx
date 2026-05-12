@@ -1,14 +1,19 @@
 import { Bookmark, Forward, Heart, MessageCircle } from 'lucide-react'
 import { api } from '../../app/Api'
 import { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import profile from '../../assets/profile.jpg'
+import { updateFollow } from '../../features/follow/updateFollow.api';
+import { isFollowingByCurrentUser } from '../../features/follow/isFollowingByCurrentUser.api';
+import { Link } from 'react-router-dom';
 
-const PostCard = ({ timeAgo, title, postImage, likeCount, commentCount, post_id, avatar, userName }) => {
+const PostCard = ({ timeAgo, title, postImage, likeCount, commentCount, post_id, avatar, userName, user_id }) => {
 
     const [isSaved, setIsSaved] = useState(false);
     const {user} = useSelector((state)=>state.auth);
+    const [isFollow, setIsFollow] = useState(false);
     const [isLiked, setIsLiked] = useState(false);
+    const dispatch = useDispatch();
 
     const handleSavePost = async () => {
         try {
@@ -64,7 +69,17 @@ const PostCard = ({ timeAgo, title, postImage, likeCount, commentCount, post_id,
                 console.error('Error fetching post like data:', error);
             }
         })(); 
+
+        (async()=>{
+            const response = await isFollowingByCurrentUser(user_id);
+            setIsFollow(response.data);
+        })();
     }, [post_id]);
+
+    const handleFollowBtn = async () => {
+        const response = await updateFollow(user_id);
+        setIsFollow(response.data)
+    }
 
   return (
     <div className='
@@ -82,13 +97,27 @@ const PostCard = ({ timeAgo, title, postImage, likeCount, commentCount, post_id,
             src={avatar?.url || profile} 
             alt="avtar" />
             <div className='mx-4'>
-                <div className='font-semibold'>
+                <Link to={`/profile/${userName}`} className='font-semibold'>
                     {userName}
-                </div>
+                </Link>
                 <div className='text-gray-500'>
                     {timeAgo}
                 </div>
             </div>
+            {
+                (userName != user.userName) && <button className='
+                py-1
+                px-2
+                my-2
+                rounded-2xl
+                bg-violet-600
+                cursor-pointer
+                hover:bg-violet-400
+                focus:bg-violet-700'
+                onClick={handleFollowBtn}>
+                    {isFollow ? "Following": "Follow"}
+                </button>
+            }
         </div>
         <div className='my-4'> {title}</div>
         <img className='
