@@ -2,6 +2,7 @@ import { useSelector } from "react-redux"
 import { useState } from "react"
 import EditProfileSection from "./EditProfileSection.component.jsx"
 import {Link, Outlet, useLocation } from "react-router-dom";
+import profile from '../../assets/profile.jpg'
 
 
 const ProfileUpperSection = () => {
@@ -68,7 +69,7 @@ const ProfileUpperSection = () => {
             border-white
             lg:shadow-2xl
             '
-            src={user.avatar?.url}
+            src={user.avatar?.url || profile}
             alt="avatar"
           />
         </div>
@@ -86,7 +87,7 @@ const ProfileUpperSection = () => {
           </div>
 
           <p className='mt-4 text-center font-medium truncate overflow-hidden h-5 w-2xs text-gray-700'>
-            {user.bio || "about me..."}
+            {user?.bio || "about me..."}
           </p>
 
           <div className='

@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { createPost } from '../../features/post/createPost.api.js'
 import { ClipLoader } from 'react-spinners'
+import profile from '../../assets/profile.jpg'
 
 const UploadPage = () => { 
 
@@ -187,7 +188,7 @@ const UploadPage = () => {
               w-12
               h-12
               rounded-full' 
-              src={user?.avatar?.url || "null"} 
+              src={user?.avatar?.url || profile} 
               alt="" />
               <div>
                 <h2 className='

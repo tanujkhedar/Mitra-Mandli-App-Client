@@ -2,6 +2,7 @@ import { Forward, Heart, MessageCircle, Volume2, VolumeX  } from 'lucide-react'
 import reel from '../../assets/reel.mp4'
 import { useEffect, useState, useRef } from 'react'
 import { api } from '../../app/Api.js'
+import profile from '../../assets/profile.jpg'
 
 const ReelCard = ({avatar, userName, video, likeCount, commentCount, index, muted, setMuted}) => {
 
@@ -110,7 +111,7 @@ const ReelCard = ({avatar, userName, video, likeCount, commentCount, index, mute
         items-end 
         w-full'>
             <div className='flex gap-4 items-center'>
-                <img className='w-10 aspect-square rounded-full' src={avatar} alt="avtar" />
+                <img className='w-10 aspect-square rounded-full' src={avatar || profile} alt="avtar" />
                 <div className='text-white' >{userName}</div>
                 <button className='text-white border-2 border-purple-600 rounded-xl py-1 px-2' >Follow</button>
             </div>

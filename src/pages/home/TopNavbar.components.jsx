@@ -1,5 +1,6 @@
 import { Bell, Search } from 'lucide-react'
 import app_logo from '../../assets/Mitra_Mandli_App_Logo.png'
+import profile from '../../assets/profile.jpg'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -54,7 +55,7 @@ const TopNavbar = () => {
             rounded-full
             cursor-pointer'
             onClick={() => {setIsViewProfileNavbar((prev) => !prev)}}
-            src={user.avatar.url} />
+            src={user?.avatar?.url || profile} />
 
             {
               isViewProfileNavbar && <div className='

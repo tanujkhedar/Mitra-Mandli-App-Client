@@ -2,6 +2,7 @@ import { Bookmark, Forward, Heart, MessageCircle } from 'lucide-react'
 import { api } from '../../app/Api'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
+import profile from '../../assets/profile.jpg'
 
 const PostCard = ({ timeAgo, title, postImage, likeCount, commentCount, post_id, avatar, userName }) => {
 
@@ -78,7 +79,7 @@ const PostCard = ({ timeAgo, title, postImage, likeCount, commentCount, post_id,
             <img className='
             w-12 
             rounded-full' 
-            src={avatar?.url} 
+            src={avatar?.url || profile} 
             alt="avtar" />
             <div className='mx-4'>
                 <div className='font-semibold'>
