@@ -192,7 +192,7 @@ const ProfileUpperSection = () => {
             hover:cursor-pointer
             focus:rounded-4xl
             '
-            to="/profile/edit-profile">
+            to={`/profile/${userName}/edit-profile`}>
               Edit Profile
             </Link> : <button className='
             h-14
